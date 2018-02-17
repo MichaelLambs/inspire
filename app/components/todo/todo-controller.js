@@ -8,6 +8,7 @@ function TodoController() {
 	// **** HINT: Everytime you make a change to any todo don't forget to get the todo list again
 	var todoService = new TodoService()
 	var todoListElem = document.getElementById('todo')
+	
 	// Use this getTodos function as your callback for all other edits
 	function getTodos(){
 		//FYI DONT EDIT ME :)
@@ -19,20 +20,26 @@ function TodoController() {
 
 		for (let i = 0; i < todos.length; i++) {
 			const todo = todos[i];
+			// debugger
+
+			
 			template += `
 				<div class="input-group">
 					<div class="input-group-prepend">
 						<div class="input-group-text">
-							<input type="checkbox" aria-label="Checkbox for following text input">
+							<input onclick="app.controllers.todoController.makeComplete(event, '${todo.id}')" type="checkbox">
 						</div>
 					</div>
 					<div class="input-group-text bg-white">
-						<h4>${todo.item}</h4>
+						<h4>${todo.item} | complete status: ${todo.completed}</h4>
 					</div>
 					<div class="input-group-append icon-holder">
 						<div class="input-group-text">
 							<i onclick="app.controllers.todoController.removeTodo('${todo.id}')" class="pointer fa-1x fa fa-trash"></i>
 							<i onclick="app.controllers.todoController.showEditTodo('${todo.id}')" class="pointer fa-1x fa fa-pencil"></i>
+						</div>
+						<div class="input-group-text">
+							<h5>${todos.length}</h5>
 						</div>
 					</div>
 				</div>
@@ -45,10 +52,21 @@ function TodoController() {
 					</div>
 				</form>		
 			`
-			
+	
 		}
 		todoListElem.innerHTML = template + `</div>`
+
 	}
+
+	this.makeComplete = function makeComplete(event, todoId){
+		event.preventDefault();
+		completeTodo = event.target
+
+		todoService.makeComplete(completeTodo, todoId, getTodos)
+
+	}
+
+
 
 	this.showEditTodo = function showEditTodo(id){
 		var form = document.getElementById('edit-' + id)
@@ -63,7 +81,8 @@ function TodoController() {
 		event.preventDefault() // <-- hey this time its a freebie don't forget this
 		var form = event.target
 		var todo = {
-			item: form.todo.value
+			item: form.todo.value,
+			completed: false
 		}
 		//PASSES THE NEW TODO TO YOUR SERVICE
 		//DON'T FORGET TO REDRAW THE SCREEN WITH THE NEW TODO
@@ -74,7 +93,7 @@ function TodoController() {
 	}
 
 	this.editTodo = function editTodo(event, todoId) {
-		event.preventDefault()
+		event.preventDefault();
 		todoChange = event.target
 		// asks the service to edit the todo status
 		todoService.editTodo(todoChange, todoId, getTodos)
