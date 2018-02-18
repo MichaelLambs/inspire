@@ -17,6 +17,7 @@ function WeatherController(){
 	function draw(res, weatherInF){
 		var weather = res.weather
 		var template = `
+		<div></div>
 		<div class="weather-holder">
 			<div>
 				<h2>Loc: ${res.name}</h2>

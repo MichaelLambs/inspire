@@ -8,46 +8,66 @@ function TodoController() {
 	// **** HINT: Everytime you make a change to any todo don't forget to get the todo list again
 	var todoService = new TodoService()
 	var todoListElem = document.getElementById('todo')
-	
+	var completedTotalElem = document.getElementById('complete-total')
+	var showTodos = document.getElementById('show-todos')
 	// Use this getTodos function as your callback for all other edits
 	function getTodos(){
 		//FYI DONT EDIT ME :)
 		todoService.getTodos(draw)
 	}
 
+	function drawTotalComplete(totalComplete){
+		var template = `${totalComplete}`
+
+		completedTotalElem.innerHTML = template
+	}
+
+	showTodos.addEventListener('click', function(){
+		var className = todoListElem.className;
+		if(className == 'hidden'){
+			todoListElem.classList.remove('hidden')
+		} else {
+			todoListElem.classList.add('hidden')
+		}
+	})
+
 	function draw(todos) {
+		var totalComplete = 0
 		var template = '<div class="list-group">'
 
 		for (let i = 0; i < todos.length; i++) {
 			const todo = todos[i];
 			// debugger
-
+			if(todo.completed == "false"){
+				totalComplete += 1;
+			}
 			
 			template += `
 				<div class="input-group">
 					<div class="input-group-prepend">
 						<div class="input-group-text">
-							<input onclick="app.controllers.todoController.makeComplete(event, '${todo.id}')" type="checkbox">
+							<input class="pointer" onclick="app.controllers.todoController.makeComplete(event, '${todo.id}')" type="checkbox">
 						</div>
 					</div>
 					<div class="input-group-text bg-white">
-						<h4>${todo.item} | complete status: ${todo.completed}</h4>
+						<p>${todo.item}</p>
 					</div>
 					<div class="input-group-append icon-holder">
 						<div class="input-group-text">
-							<i onclick="app.controllers.todoController.removeTodo('${todo.id}')" class="pointer fa-1x fa fa-trash"></i>
+							<i onclick="app.controllers.todoController.removeTodo('${todo.id}')" class="mar-r pointer fa-1x fa fa-trash"></i>
 							<i onclick="app.controllers.todoController.showEditTodo('${todo.id}')" class="pointer fa-1x fa fa-pencil"></i>
-						</div>
-						<div class="input-group-text">
-							<h5>${todos.length}</h5>
 						</div>
 					</div>
 				</div>
 				<form class="hidden" id="edit-${todo.id}" onsubmit="app.controllers.todoController.editTodo(event, '${todo.id}')">
-					<div class="form-row justify-content-center">
-						<div class="col-sm-2">
-							<input type="text" class="form-control" name="todo" value="${todo.item}" required>
-							<button type="submit" class="btn btn-success">Edit</button>
+					<div class="form-row">
+						<div class="col-sm-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="todo" value="${todo.item}" required>
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-outline-warning">Edit</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>		
@@ -55,7 +75,7 @@ function TodoController() {
 	
 		}
 		todoListElem.innerHTML = template + `</div>`
-
+		drawTotalComplete(totalComplete)
 	}
 
 	this.makeComplete = function makeComplete(event, todoId){

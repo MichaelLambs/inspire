@@ -9,7 +9,7 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	 crossorigin="anonymous">
-	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 	<link rel="stylesheet" href="assets/css/main.css">
 
 </head>
@@ -17,25 +17,35 @@
 <body>
 
 	<div id="body" class="full-bg">
-		<div id="weather">
-			Your Weather Template
-		</div>
+		<div class="weather-box" id="weather"></div>
 
-		<div id="quote">
-			The Quote
-		</div>
+		<div class="quote-box" id="quote"></div>
 
-		<div>
+		<div class="todo-box">
+			<div class="form-row">
+				<div class="col-sm-12">
+					<div id="todo" class="hidden"></div>
+				</div>
+			</div>
 			<form onsubmit="app.controllers.todoController.addTodoFromForm(event)">
-				<div class="form-row justify-content-center">
-					<div class="col-sm-2">
-						<input type="text" class="form-control" name="todo" placeholder="Today's Agenda" required>
-						<button type="submit" class="btn btn-success">Add</button>
+				<div class="form-row">
+					<div class="col-sm-12">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div id="show-todos" class="input-group-text pointer">
+									<span class="badge badge-primary" id="complete-total"></span>
+								</div>
+							</div>
+							<input type="text" class="form-control" name="todo" placeholder="Today's Agenda" required>
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-outline-primary">Add</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</form>
+
 		</div>
-		<div id="todo"></div>
 
 	</div>
 

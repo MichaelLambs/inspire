@@ -16,10 +16,10 @@ function QuoteController(){
 
 		<div class="quote-holder">
 			<div>
-				<h1 id="show-author">"${quote.quote}"</h1>
+				<h2 id="show-author">"${quote.quote}"</h2>
 			</div>
 			<div id="author" class="hidden">
-				<h3>- <em>${quote.author}</em></h3>
+				<h5>- <em>${quote.author}</em></h5>
 			</div>
 		</div>
 
