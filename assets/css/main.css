@@ -35,6 +35,9 @@ body {
   opacity: 0;
   cursor: default;
   pointer-events: none;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
 }
 
 .quote-holder {
@@ -72,6 +75,15 @@ body {
   cursor: pointer;
 }
 
+.strike-it {
+  text-decoration: line-through;
+}
+
 .mar-r {
   margin-right: 1rem;
+}
+
+#author {
+  position: absolute;
+  text-align: center;
 }

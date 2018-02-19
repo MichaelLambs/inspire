@@ -8,8 +8,8 @@ function ImageController() {
 	}
 
 
-	function draw(img){
-		pageElem.style.backgroundImage = "url('" + img.url + "')"
+	function draw(){
+		pageElem.style.backgroundImage = "url('https://source.unsplash.com/random/1600x900')"
 	}
 
 	getImage();

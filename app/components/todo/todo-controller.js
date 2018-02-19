@@ -32,15 +32,19 @@ function TodoController() {
 	})
 
 	function draw(todos) {
+		
 		var totalComplete = 0
 		var template = '<div class="list-group">'
 
 		for (let i = 0; i < todos.length; i++) {
 			const todo = todos[i];
 			// debugger
+			
 			if(todo.completed == "false"){
 				totalComplete += 1;
 			}
+
+			
 			
 			template += `
 				<div class="input-group">
@@ -50,7 +54,7 @@ function TodoController() {
 						</div>
 					</div>
 					<div class="input-group-text bg-white">
-						<p>${todo.item}</p>
+						<p id="strike">${todo.item}</p>
 					</div>
 					<div class="input-group-append icon-holder">
 						<div class="input-group-text">
@@ -72,10 +76,11 @@ function TodoController() {
 					</div>
 				</form>		
 			`
-	
 		}
 		todoListElem.innerHTML = template + `</div>`
 		drawTotalComplete(totalComplete)
+		
+		
 	}
 
 	this.makeComplete = function makeComplete(event, todoId){
