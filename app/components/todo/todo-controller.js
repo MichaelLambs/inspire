@@ -18,9 +18,23 @@ function TodoController() {
 
 	function drawTotalComplete(totalComplete){
 		var template = `${totalComplete}`
-
 		completedTotalElem.innerHTML = template
 	}
+
+	// function strikeIt(arr){
+	// 	totalComplete = 0
+	// 	var strikeElem = document.getElementById('strike')
+	// 	// debugger
+	// 	arr.forEach(complete => {
+	// 		if(complete.completed == "true"){
+	// 			strikeElem.classList.add('strike-it')
+	// 		} else if(complete.completed == "false"){
+	// 			totalComplete +=1
+	// 			strikeElem.classList.remove('strike-it')
+	// 		}
+	// 	})
+	// 	drawTotalComplete(totalComplete)
+	// }
 
 	showTodos.addEventListener('click', function(){
 		var className = todoListElem.className;
@@ -87,7 +101,7 @@ function TodoController() {
 		event.preventDefault();
 		completeTodo = event.target
 
-		todoService.makeComplete(completeTodo, todoId, getTodos)
+		todoService.makeComplete(completeTodo, todoId, draw)
 
 	}
 
